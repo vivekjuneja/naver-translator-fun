@@ -11,6 +11,7 @@ from selenium.common.exceptions import TimeoutException
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
+webdriver_type="chrome"
 
 
 sentence_split_threshold=200
@@ -53,8 +54,11 @@ def speak_translated_text(translate_str):
 
 def setup(translate_str):
 	translated_sentences_buffer = split(translate_str)
-	driver = webdriver.Chrome('/Users/vivekjuneja/Downloads/chromedriver')  # Optional argument, if not specified will search path.
-	
+	if webdriver_type=="chrome":
+		driver = webdriver.Chrome('/Users/vivekjuneja/Downloads/chromedriver') 
+	elif webdriver_type=="phantomjs":
+		driver = webdriver.PhantomJS()	
+
 	print len(translated_sentences_buffer)
 	translated = ""
 	for each_sentence_to_translate in translated_sentences_buffer:
@@ -66,7 +70,7 @@ def setup(translate_str):
 		driver.find_elements(By.XPATH, '//button')[1].click()
 
 		try:
-		    element = WebDriverWait(driver, 1).until(EC.presence_of_element_located((By.XPATH, '//textarea[class()="ta ng-untouched ng-pristine ng-valid" and text() != ""]'))
+		    element = WebDriverWait(driver, 4).until(EC.presence_of_element_located((By.XPATH, '//textarea[class()="ta ng-untouched ng-pristine ng-valid" and text() != ""]'))
 		)
 
 		except TimeoutException: 
@@ -78,10 +82,11 @@ def setup(translate_str):
 		    translated = translated + translated_str
 
 
-
 	driver.quit()
+	print (translated)
 	return translated
 
+
 if __name__ == '__main__':
-	print setup("재판부는 귀가해 예상치 못한 상황을 목격한 피고인은 A씨가 해명도 없이 옷을 챙겨입고 급히 자리를 떠나려 하자 그 상황에 대한 증거를 확보하기 위해 촬영한 것으로 보인다며 경찰이 출동할 때까지 기다려 증거를 확보하는 등 다른 법적 조치를 찾아볼 만한 시간적 여유가 없었던 것으로 판단돼 피고인의 이 부분에 대한. 재판부는 귀가해 예상치 못한 상황을 목격한 피고인은 A씨가 해명도 없이 옷을 챙겨입고 급히 자리를 떠나려 하자 그 상황에 대한 증거를 확보하기 위해 촬영한 것으로 보인다며 경찰이 출동할 때까지 기다려 증거를 확보하는 등 다른 법적 조치를 찾아볼 만한 시간적 여유가 없었던 것으로 판단돼 피고인의 이 부분에 대한")
-	#speak_translated_text("Hello")
+	print setup("강호인 국토교통부 장관은 지난 14일 국회 국토교통위원회 국정감사에서")
+	speak_translated_text("Hello")

@@ -15,7 +15,7 @@ this hack further.
 ###How to Use ?
 
 1. Have an installed Chrome browser on your Mac
-2. Have Python and Selenium library installed 
+2. Ensure Python 2.7.x is installed. Install Selenium and Flask library : `pip install selenium flask`
 3. Have ChromeDriver installed and available on the PATH environment variable
 4. Run the api.py using `export WEBDRIVER=chrome; python api.py`
 5. If phantomjs is to needed, then you can run the program by `export WEBDRIVER=phantomjs; python api.py`

@@ -66,7 +66,7 @@ def setup(translate_str):
 		driver.find_elements(By.XPATH, '//button')[1].click()
 
 		try:
-		    element = WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, '//textarea[class()="ta ng-untouched ng-pristine ng-valid" and text() != ""]'))
+		    element = WebDriverWait(driver, 1).until(EC.presence_of_element_located((By.XPATH, '//textarea[class()="ta ng-untouched ng-pristine ng-valid" and text() != ""]'))
 		)
 
 		except TimeoutException: 

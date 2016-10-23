@@ -12,4 +12,9 @@ this hack further.
 
 ###How to Use ?
 
+1. Have an installed Chrome browser on your Mac
+2. Have Python and Selenium library installed 
+3. Have ChromeDriver installed
+4. Run the api.py using `python api.py`
+
 

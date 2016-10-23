@@ -1,3 +1,5 @@
+#About the Hack !
+
 Naver Translator (http://labspace.naver.com/nmt/) has better translation quality for Korean to English than Google Translate. 
 But, it does not expose API or allow more than 200 characters.
 
@@ -14,7 +16,14 @@ this hack further.
 
 1. Have an installed Chrome browser on your Mac
 2. Have Python and Selenium library installed 
-3. Have ChromeDriver installed
-4. Run the api.py using `python api.py`
+3. Have ChromeDriver installed and available on the PATH environment variable
+4. Run the api.py using `export WEBDRIVER=chrome; python api.py`
+5. If phantomjs is to needed, then you can run the program by `export WEBDRIVER=phantomjs; python api.py`
+
+###Known issues
+
+1. PhantomJS causes frequent issues while loading the page. Hence the default is set to `chrome`
+
+
 
 

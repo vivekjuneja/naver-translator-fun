@@ -1,2 +1,5 @@
 sample.txt
 *.pyc
+*.log
+sample.txt
+test*.*

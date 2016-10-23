@@ -54,13 +54,12 @@ def speak_translated_text(translate_str):
 def setup(translate_str):
 	translated_sentences_buffer = split(translate_str)
 	driver = webdriver.Chrome('/Users/vivekjuneja/Downloads/chromedriver')  # Optional argument, if not specified will search path.
-	driver.get('http://labspace.naver.com/nmt/');
-	time.sleep(1) # Let the user actually see something!
+	
 	print len(translated_sentences_buffer)
 	translated = ""
 	for each_sentence_to_translate in translated_sentences_buffer:
 		driver.get('http://labspace.naver.com/nmt/');
-		time.sleep(1) # Let the user actually see something!
+		#time.sleep(1) # Let the user actually see something!
 		encoded_translate_str = (each_sentence_to_translate)
 		print "To Translate : " + encoded_translate_str
 		driver.find_elements(By.XPATH, '//textarea')[0].send_keys(encoded_translate_str)

@@ -1,0 +1,7 @@
+Dockerfile
+README.md
+*.log
+*.pyc
+sample.txt
+test*.*
+

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import time,sys
+import time,sys,os
 from subprocess import call
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -11,7 +11,7 @@ from selenium.common.exceptions import TimeoutException
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
-webdriver_type="chrome"
+webdriver_type=os.environ['WEBDRIVER']
 
 
 sentence_split_threshold=200
@@ -55,7 +55,7 @@ def speak_translated_text(translate_str):
 def setup(translate_str):
 	translated_sentences_buffer = split(translate_str)
 	if webdriver_type=="chrome":
-		driver = webdriver.Chrome('/Users/vivekjuneja/Downloads/chromedriver') 
+		driver = webdriver.Chrome() 
 	elif webdriver_type=="phantomjs":
 		driver = webdriver.PhantomJS()	
 

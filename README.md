@@ -38,6 +38,13 @@ this hack further.
     ![Slack Bot Demo](translator_demo.png)
     
 
+###Sample run 
+
+    ![Slack Bot Run](http://g.recordit.co/A7IlRFk1RO.gif)
+
+
+    
+
 ###Known issues
 
 1. PhantomJS causes frequent issues while loading the page. Hence the default is set to `chrome`

@@ -22,12 +22,21 @@ this hack further.
 4. Run the api.py using `export WEBDRIVER=chrome; python api.py`
 5. If phantomjs is to needed, then you can run the program by `export WEBDRIVER=phantomjs; python api.py`. Please ensure you have phantomjs libraries on your machine. More on this later. 
 6. To use the Slack bot, do the following :- 
-  a. Get the Slack API Token, and set the environment variable `export SLACK_BOT_TOKEN=<TOKEN>`
-  b. Run `python print_bot_id.py` to get the Slack Bot ID. The Bot username is `translator` by default.
-  c. Set the environmebt variable `export BOT_ID=<BOTID>`
-  d. Run the Bot `python translate_bot.py`
-  e. Add the `translator` bot to you Slack Channel
-  f. Access the bot `@translator translate 이것은 대단한 데모이다.`
+    
+    a. Get the Slack API Token, and set the environment variable `export SLACK_BOT_TOKEN=<TOKEN>`
+    
+    b. Run `python print_bot_id.py` to get the Slack Bot ID. The Bot username is `translator` by default.
+    
+    c. Set the environmebt variable `export BOT_ID=<BOTID>`
+    
+    d. Run the Bot `python translate_bot.py`
+    
+    e. Add the `translator` bot to you Slack Channel
+    
+    f. Access the bot `@translator translate 이것은 대단한 데모이다.`
+    
+    ![Slack Bot Demo](translator_demo.png)
+    
 
 ###Known issues
 

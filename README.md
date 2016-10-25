@@ -9,6 +9,8 @@ So my hack uses Selenium APIs to control a Chrome browser to load the Naver tran
 
 2. Allow APIs : Translate API and Speech API (uses the installed Voice installed on a MacOS)
 
+3. A Proof of concept added to demonstrate integration with Slack as a bot
+
 The Goal is to allow Naver Translator to be used for general Translation services. We could build a Chrome Plugin to extend 
 this hack further. 
 

@@ -40,7 +40,7 @@ this hack further.
 
 ###Sample run 
 
-    ![Slack Bot Run](http://g.recordit.co/A7IlRFk1RO.gif)
+![Slack Bot Run](http://g.recordit.co/A7IlRFk1RO.gif)
 
 
     

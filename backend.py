@@ -1,17 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import time,sys,os
+import time,sys,os,json
 from subprocess import call
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC 
-from selenium.common.exceptions import TimeoutException
+import httplib, urllib
 
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
-webdriver_type=os.environ['WEBDRIVER']
 
 
 sentence_split_threshold=200
@@ -45,48 +40,49 @@ def split(translate_text):
 
 
 def translate_text_to_text(translate_str):
-	return setup(translate_str)
+	translated_text = ""
+	for to_translate in split(translate_str):
+		translated_text+=call_translator(to_translate)
+
+	return translated_text
 
 def speak_translated_text(translate_str):
-	translated_str = setup(translate_str)
+	translated_str = translate_text_to_text(translate_str)
 	call(["say", translated_str])
 	return translated_str
 
-def setup(translate_str):
-	translated_sentences_buffer = split(translate_str)
-	if webdriver_type=="chrome":
-		driver = webdriver.Chrome() 
-	elif webdriver_type=="phantomjs":
-		driver = webdriver.PhantomJS()	
+def call_translator(translate_str):
+	NAVER_MNT_HOST = 'labspace.naver.com'
+	NAVER_MNT_PORT = 80
 
-	print len(translated_sentences_buffer)
-	translated = ""
-	for each_sentence_to_translate in translated_sentences_buffer:
-		driver.get('http://labspace.naver.com/nmt/');
-		#time.sleep(1) # Let the user actually see something!
-		encoded_translate_str = (each_sentence_to_translate)
-		print "To Translate : " + encoded_translate_str
-		driver.find_elements(By.XPATH, '//textarea')[0].send_keys(encoded_translate_str)
-		driver.find_elements(By.XPATH, '//button')[1].click()
+	conn = httplib.HTTPConnection(NAVER_MNT_HOST, NAVER_MNT_PORT)
+	conn.set_debuglevel(1)
+	conn.connect()
 
-		try:
-		    element = WebDriverWait(driver, 4).until(EC.presence_of_element_located((By.XPATH, '//textarea[class()="ta ng-untouched ng-pristine ng-valid" and text() != ""]'))
-		)
-
-		except TimeoutException: 
-			pass
-		finally:
-		    text = driver.find_elements(By.XPATH, '//textarea')[1]
-		    sys.exc_clear()
-		    translated_str = text.get_attribute("value")
-		    translated = translated + translated_str
+	params = urllib.urlencode({
+	    'source': 'ko',
+	    'target': 'en',
+	    'text': translate_str
+	})
 
 
-	driver.quit()
-	print (translated)
+	headers = {
+	    "content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+	}
+
+	request = conn.request('POST', '/api/n2mt/translate', params, headers)
+
+	response = conn.getresponse()
+	response_json = json.loads(response.read())
+
+	print response.status
+	print response.reason
+	translated = response_json["message"]["result"]["translatedText"]
 	return translated
+
+	conn.close()
 
 
 if __name__ == '__main__':
-	print setup("강호인 국토교통부 장관은 지난 14일 국회 국토교통위원회 국정감사에서")
-	speak_translated_text("Hello")
+	print call_translator("강호인 국토교통부 장관은 지난 14일 국회 국토교통위원회 국정감사에서")
+	#speak_translated_text("Hello")

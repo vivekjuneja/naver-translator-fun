@@ -1,6 +1,6 @@
 #!flask/bin/python
 from flask import Flask, request
-import backend
+import translate
 
 app = Flask(__name__)
 
@@ -11,7 +11,10 @@ def health_check():
 @app.route('/translate', methods=['POST'])
 def call_translator():
     print request.data
-    return backend.translate_text_to_text(request.data)
+    translation=translate.translate_text_to_text(request.data)
+    print translation
+    return translation
+    
 
 @app.route('/speak', methods=['POST'])
 def call_translator_speech():

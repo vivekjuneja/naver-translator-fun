@@ -8,6 +8,8 @@ import httplib, urllib
 reload(sys)  
 sys.setdefaultencoding('utf8')
 
+target="ko"
+source="en"
 
 sentence_split_threshold=200
 
@@ -41,6 +43,18 @@ def split(translate_text):
 
 def translate_text_to_text(translate_str):
 	translated_text = ""
+	print "Hello"
+	global target
+	global source
+	print ord(translate_str[1:2])
+	if(ord(translate_str[1:2])>122):
+		 target="en"
+		 source="ko"
+	elif(ord(translate_str[1:2])<=122):
+		target="ko"
+		source="en"
+
+	print source, target
 	for to_translate in split(translate_str):
 		translated_text+=call_translator(to_translate)
 
@@ -59,9 +73,10 @@ def call_translator(translate_str):
 	conn.set_debuglevel(1)
 	conn.connect()
 
+	print source, target
 	params = urllib.urlencode({
-	    'source': 'ko',
-	    'target': 'en',
+	    'source': source,
+	    'target': target,
 	    'text': translate_str
 	})
 
@@ -84,5 +99,6 @@ def call_translator(translate_str):
 
 
 if __name__ == '__main__':
-	print call_translator("강호인 국토교통부 장관은 지난 14일 국회 국토교통위원회 국정감사에서")
+	print translate_text_to_text("교통부 장관")
+	
 	#speak_translated_text("Hello")

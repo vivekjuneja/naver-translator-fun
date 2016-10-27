@@ -29,8 +29,8 @@ def handle_command(command, channel):
                "* command with numbers, delimited by spaces."
     if command.startswith(EXAMPLE_COMMAND):
         '''Call the Translator API'''
-        payload=u"저녁 드실분 계신가요?^^"
-        r = requests.post("http://localhost:5000/translate",  data=payload.encode('utf-8'))
+	payload=command[(command.startswith(EXAMPLE_COMMAND)+len(EXAMPLE_COMMAND)):]
+	r = requests.post("http://localhost:5000/translate",  data=payload.encode('utf-8'))
 
         print r.text
         response = "Sure...write some more code then I can do that!"
@@ -57,7 +57,7 @@ def parse_slack_output(slack_rtm_output):
 if __name__ == "__main__":
     READ_WEBSOCKET_DELAY = 1 # 1 second delay between reading from firehose
     if slack_client.rtm_connect():
-        print("StarterBot connected and running!")
+        print("TranslateBot connected and running!")
         while True:
             command, channel = parse_slack_output(slack_client.rtm_read())
             print "reading"
